@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart City Surveillance - FL</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; padding: 20px; }
+        .status-card { border: 1px solid #444; padding: 20px; border-radius: 8px; background: #2a2a2a; }
+        .alert { color: #ff4d4d; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Smart City Surveillance System</h1>
+    <div class="status-card">
+        <h2>Federated Learning Status</h2>
+        <p>Global Model Version: <span id="version">1.0.0</span></p>
+        <p>System Status: <span id="status" style="color: #00ff00;">Listening for Clients...</span></p>
+        <hr>
+        <h3>Live Event Detection Feed</h3>
+        <ul id="events">
+            <li>System Initialized...</li>
+        </ul>
+    </div>
+<div id="alert-container"></div>
+
+<script>
+    socket.on('dashboard_alert', function(data) {
+        let container = document.getElementById('alert-container');
+        let alertBox = document.createElement("div");
+        
+        alertBox.style.background = "#ff4d4d";
+        alertBox.style.padding = "15px";
+        alertBox.style.margin = "10px 0";
+        alertBox.style.borderRadius = "5px";
+        
+        alertBox.innerHTML = `
+            <strong>🚨 UNUSUAL EVENT DETECTED</strong><br>
+            Location: ${data.location}<br>
+            Confidence: ${data.confidence}<br>
+            Time: ${data.timestamp}
+        `;
+        
+        container.prepend(alertBox);
+        
+        // Audio notification (optional)
+        // new Audio('/static/alert.mp3').play();
+    });
+</script>
+    <script>
+        var socket = io();
+        socket.on('new_global_model', function(data) {
+            document.getElementById('status').innerText = "Global Model Updated!";
+            let li = document.createElement("li");
+            li.innerHTML = `<span class="alert">Unusual Event Pattern Updated</span> at ${new Date().toLocaleTimeString()}`;
+            document.getElementById('events').prepend(li);
+        });
+    </script>
+</body>
+</html>

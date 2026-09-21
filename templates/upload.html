@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Data Management Center</h2>
+    <p>Provide surveillance data to identify unusual city events.</p>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <div class="card">
+            <h3>Option A: Upload Sensor Logs</h3>
+            <p>Select a CSV file containing traffic and noise metrics.</p>
+            <input type="file" name="file">
+        </div>
+
+        <div class="card">
+            <h3>Option B: Synthetic Generation</h3>
+            <p>Generate simulated city data for testing the identification algorithm.</p>
+            <button type="submit" name="generate" value="true" class="btn-alt">Generate & Analyze</button>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button type="submit" class="btn-primary" style="width: 100%; font-size: 1.1rem;">Run Unusual Event Identification</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

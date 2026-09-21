@@ -1,0 +1,56 @@
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Surveillance | Federated Node</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🏙️ SmartCity<span>Surveillance</span></div>
+        <div class="nav-links">
+            <a href="{{ url_for('signup') }}">Register</a>
+            <a href="{{ url_for('upload') }}">Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="node-status">
+                <h3>Node Info</h3>
+                <p><strong>Status:</strong> <span style="color: #4df3a9;">● Online</span></p>
+                <p><strong>ID:</strong> SC-NODE-042</p>
+                <p><strong>Model:</strong> Isolation Forest</p>
+            </div>
+            <hr style="border: 0.5px solid #0f3460;">
+            <p style="font-size: 0.8rem; color: #888;">
+                This node performs local anomaly detection before participating in federated aggregation.
+            </p>
+        </aside>
+
+        <main class="content">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="footer">
+        &copy; 2026 Smart City Federated Learning Initiative
+    </footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="max-width: 1100px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Event Identification Dashboard</h2>
+        <a href="{{ url_for('upload') }}" class="btn-alt" style="text-decoration: none; font-size: 0.8rem;">← New Upload</a>
+    </div>
+
+    <div class="chart-container">
+        <div class="card">
+            <h4>Anomalous vs Normal Events</h4>
+            <img src="{{ url_for('static', filename='plots/distribution.png') }}?{{ range(1, 99999)|random }}" alt="Distribution">
+        </div>
+        <div class="card">
+            <h4>Sensor Feature Correlation</h4>
+            <img src="{{ url_for('static', filename='plots/heatmap.png') }}?{{ range(1, 99999)|random }}" alt="Heatmap">
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 30px; text-align: left;">
+        <div style="display: flex; justify-content: space-between;">
+            <h3>Local Detection Log (Top 10)</h3>
+            <span class="status-indicator">Latest Processing Complete</span>
+        </div>
+        <p style="color: #888; font-size: 0.85rem; margin-bottom: 15px;">
+            Showing the first 10 rows of your most recently uploaded surveillance data.
+        </p>
+        
+        <div style="overflow-x: auto;">
+            {% if table %}
+                {{ table | safe }}
+            {% else %}
+                <p>No data processed yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

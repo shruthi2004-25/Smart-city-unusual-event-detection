@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Node Registration</h2>
+    <p>Register this surveillance terminal to the federated network.</p>
+    <form method="POST" style="margin-top: 20px;">
+        <input type="text" name="username" placeholder="Admin Username" required><br>
+        <input type="password" name="password" placeholder="Node Password" required><br>
+        <button type="submit" class="btn-primary">Initialize Node</button>
+    </form>
+</div>
+{% endblock %}
